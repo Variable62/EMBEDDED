@@ -9,32 +9,29 @@
 #define Led_Green PB2
 
 void clear_led(){
-   PORTB &= ~((1 << Led_Red) | (1<<Led_Yellow) | (1<<Led_Green));
+    PORTB &= ~((1 << Led_Red) | (1 << Led_Yellow) | (1 << Led_Green));
 }
-
 ISR(INT0_vect) {
-	 clear_led();
-	 PORTB  |= (1<<Led_Green);
-	 TCNT1  = 3036;// 65536-62500;
+   clear_led();
+   PORTB  |= (1 << Led_Green);
+   TCNT1  = 3036;// 65536-62500;
 }
-
 ISR(TIMER1_OVF_vect) {
-   if (PORTB & (1 << Led_Green))
-  {
+if (PORTB & (1 << Led_Green)){
     clear_led();
-    PORTB |= (1<<Led_Yellow);
+    PORTB |= (1 << Led_Yellow);
     TCNT1 = 49911;
-  }
-  else if(PORTB & (1<<Led_Yellow)){
+}
+else if(PORTB & (1 << Led_Yellow)){
     clear_led();
-    PORTB |= (1<<Led_Red);
+    PORTB |= (1 << Led_Red);
     TIMSK1 = 1; //disable timer interrupt 
-}}
-
+}
+}
 int main() 
 { 
-  DDRD &= ~(1<<Sw);// Sw input
-  DDRB  |= ((1 << Led_Red) | (1<<Led_Yellow) | (1<<Led_Green));// led out put
+  DDRD &= ~(1 << Sw);// Sw input
+  DDRB  |= ((1 << Led_Red) | (1 << Led_Yellow) | (1 << Led_Green));// led out put
 	 
   EICRA = EICRA | 0b00000010; // INT0 Falling Edge
   EIMSK = 1;                  // Enable INT0  
@@ -45,7 +42,7 @@ int main()
   TCNT1  = 3036;       // 65536-62500;
   TIMSK1 = 0b00000001;// Overflow Interrupt
   TIFR1  = 0b00000001;; // Clear Overflow Status
-  PORTB  |= (1<<Led_Red);//l  led red on
+  PORTB  |= (1 << Led_Red);// led red on
   // Turn on global interrupts 
   sei();
   while(true){
