@@ -4,9 +4,9 @@
 #include  <avr/io.h>
 #include  <util/delay.h>
 #define Sw PD2
-#define Led_Red PB0
+#define Led_Green PB0
 #define Led_Yellow PB1
-#define Led_Green PB2
+#define Led_Red PB2
 
 void clear_led(){
     PORTB &= ~((1 << Led_Red) | (1 << Led_Yellow) | (1 << Led_Green));
