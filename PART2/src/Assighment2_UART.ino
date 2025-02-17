@@ -58,13 +58,6 @@ void Set_Interrupts() {
   EICRA = EICRA | 0b00001010;  //Falling Edge
   EIMSK |= (1 << INT0);        // Enable INT0 INT1
 }
-
-void Set_Timer() {
-  TCCR1A = 0b00000000;  // Nomal mode
-  TCCR1B = 0b00000101;  // 1024 Prescale
-  TIMSK1 = 0b00000001;
-}
-
 ISR(INT0_vect) {
   char temp_str[10];
   Temp = Get_Temperature();
@@ -86,7 +79,6 @@ int main(void) {
   serial_begin();
   DDRB = 0b00000001;  // set PB0 output
   Set_Interrupts();
-  Set_Timer();
   sei();  // Enable global interrupts
   serial_puts("Read Temperature in Celsius (1) or Fahrenheit (2) : ");
 
