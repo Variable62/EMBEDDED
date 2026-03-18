@@ -38,7 +38,6 @@ int main()
  
   TCNT1  = 3036;       // 65536-62500;
   TIMSK1 = 0b00000001;// Overflow Interrupt
-  TIFR1  = 0b00000001;; // Clear Overflow Status
   PORTB  |= (1 << Led_Red);// led red on
   // Turn on global interrupts 
   sei();
